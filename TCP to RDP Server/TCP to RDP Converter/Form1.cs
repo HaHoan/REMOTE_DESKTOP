@@ -32,13 +32,13 @@ namespace TCP_to_RDP_Converter
             session.Close();
         }
 
-        public static string getConnectionString(RDPSession session, String authString, 
+        public static string getConnectionString(RDPSession session, String authString,
             string group, string password, int clientLimit)
         {
             IRDPSRAPIInvitation invitation =
                 session.Invitations.CreateInvitation
                 (authString, group, password, clientLimit);
-                        return invitation.ConnectionString;
+            return invitation.ConnectionString;
         }
 
         private static void Incoming(object Guest)
@@ -46,14 +46,14 @@ namespace TCP_to_RDP_Converter
             IRDPSRAPIAttendee MyGuest = (IRDPSRAPIAttendee)Guest;
             MyGuest.ControlLevel = CTRL_LEVEL.CTRL_LEVEL_INTERACTIVE;
         }
-
+        string IpAddress = "";
         /// <summary>
         /// Handle the form items
         /// </summary>
         public Form1()
         {
             InitializeComponent();
-            var IpAddress = CommonFunc.Utils.GetLocalIPAddress();
+            IpAddress = CommonFunc.Utils.GetLocalIPAddress();
             createSession();
             Connect(currentSession);
             var textConnectionString = getConnectionString(currentSession,
@@ -61,7 +61,7 @@ namespace TCP_to_RDP_Converter
             using (var db = new SOFTWAREEntities())
             {
                 var ip = db.REMOTE_INFO.Where(m => m.IPAddress == IpAddress).FirstOrDefault();
-                if(ip != null)
+                if (ip != null)
                 {
                     ip.UpdateTime = DateTime.Now;
                     ip.Connection = textConnectionString;
@@ -79,22 +79,24 @@ namespace TCP_to_RDP_Converter
                     db.SaveChanges();
                 }
             }
-
+            lblStatus.Text = "SUCCESSFULLY!";
+            lblStatus.ForeColor = Color.DarkOliveGreen;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-           
-        }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Disconnect(currentSession);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
+            using (var db = new SOFTWAREEntities())
+            {
+                var ip = db.REMOTE_INFO.Where(m => m.IPAddress == IpAddress).FirstOrDefault();
+                if (ip != null)
+                {
+                    ip.UpdateTime = DateTime.Now;
+                    ip.Connection = "";
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }
