@@ -18,5 +18,7 @@ namespace TCP_to_RDP_Converter
         public string IPAddress { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public string Connection { get; set; }
+        public string ComputerName { get; set; }
+        public Nullable<bool> IsOnline { get; set; }
     }
 }

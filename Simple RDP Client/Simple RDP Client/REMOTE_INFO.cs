@@ -18,5 +18,7 @@ namespace Simple_RDP_Client
         public string IPAddress { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public string Connection { get; set; }
+        public string ComputerName { get; set; }
+        public Nullable<bool> IsOnline { get; set; }
     }
 }

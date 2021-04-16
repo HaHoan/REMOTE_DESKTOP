@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SOFTWAREModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SOFTWAREModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="REMOTE_INFO">
           <Key>
             <PropertyRef Name="Id" />
@@ -13,15 +13,19 @@
           <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdateTime" Type="datetime" />
           <Property Name="Connection" Type="nvarchar(max)" />
+          <Property Name="ComputerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsOnline" Type="bit" />
         </EntityType>
         <EntityContainer Name="SOFTWAREModelStoreContainer">
           <EntitySet Name="REMOTE_INFO" EntityType="Self.REMOTE_INFO" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SOFTWAREModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SOFTWAREEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="REMOTE_INFO" EntityType="SOFTWAREModel.REMOTE_INFO" />
+        </EntityContainer>
         <EntityType Name="REMOTE_INFO">
           <Key>
             <PropertyRef Name="Id" />
@@ -30,10 +34,9 @@
           <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateTime" Type="DateTime" Precision="3" />
           <Property Name="Connection" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ComputerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsOnline" Type="Boolean" />
         </EntityType>
-        <EntityContainer Name="SOFTWAREEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="REMOTE_INFO" EntityType="Self.REMOTE_INFO" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43,10 +46,12 @@
           <EntitySetMapping Name="REMOTE_INFO">
             <EntityTypeMapping TypeName="SOFTWAREModel.REMOTE_INFO">
               <MappingFragment StoreEntitySet="REMOTE_INFO">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+                <ScalarProperty Name="ComputerName" ColumnName="ComputerName" />
                 <ScalarProperty Name="Connection" ColumnName="Connection" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

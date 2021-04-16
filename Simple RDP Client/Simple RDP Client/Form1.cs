@@ -1,74 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RDPCOMAPILib;
 using AxRDPCOMAPILib;
-
 
 namespace Simple_RDP_Client
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        public Action closed;
+        public Form1(string connection)
         {
             InitializeComponent();
+            Connect(connection, this.axRDPViewer, "", "");
         }
 
         public static void Connect(string invitation, AxRDPViewer display, string userName, string password)
         {
-            display.Connect(invitation, userName, password);
+            try
+            {
+                display.Connect(invitation, userName, password);
+            }catch(Exception e)
+            {
+                MessageBox.Show(e.Message.ToString());
+            }
         }
 
         public static void disconnect(AxRDPViewer display)
         {
-            display.Disconnect();
-        }
-        Timer timer;
-        int i = 1;
-        private void InitializeTimer()
-        {
-            timer = new Timer
+            try
             {
-                Interval = 1000
-            };
-            timer.Enabled = true;
-            timer.Tick += new System.EventHandler(Timer_Tick);
-        }
-
-        private void Timer_Tick(object Sender, EventArgs e)
-        {
-            lblTick.Text = i.ToString();
-            i++;
-            using (var db = new SOFTWAREEntities())
+                display.Disconnect();
+            }catch(Exception e)
             {
-                var ip = db.REMOTE_INFO.Where(m => m.IPAddress == txtIpAddress.Text.Trim()).OrderByDescending(m => m.UpdateTime).FirstOrDefault();
-                if (ip != null && !string.IsNullOrEmpty(ip.Connection))
-                {
-                    Connect(ip.Connection, this.axRDPViewer, "", "");
-                    timer.Stop();
-                    i = 1;
-                }
-
-            };
-
+              
+            }
+            
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {
-                InitializeTimer();
+                closed();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Unable to connect to the Server");
+                MessageBox.Show(ex.Message.ToString());
             }
+            
         }
     }
 }

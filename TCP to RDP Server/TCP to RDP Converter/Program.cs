@@ -14,9 +14,17 @@ namespace TCP_to_RDP_Converter
         [STAThread]
         static void Main()
         {
+            bool result;
+            var mutex = new System.Threading.Mutex(true, "UMC REMOTE DESKTOP", out result);
+            if (!result)
+            {
+                MessageBox.Show("Program is already running.");
+                return;
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Form1 main = new Form1();
+            Application.Run();
         }
     }
 }
