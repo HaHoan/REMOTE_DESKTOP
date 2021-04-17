@@ -47,45 +47,73 @@ namespace TCP_to_RDP_Converter
             MyGuest.ControlLevel = CTRL_LEVEL.CTRL_LEVEL_INTERACTIVE;
         }
         string IpAddress = "";
+        Timer timer;
+        private void InitializeTimer()
+        {
+            timer = new Timer
+            {
+                Interval = 1000
+            };
+            timer.Enabled = true;
+            timer.Tick += new System.EventHandler(Timer_Tick);
+        }
+
+        private void Timer_Tick(object Sender, EventArgs e)
+        {
+            if (CommonFunc.Utils.PingHost("172.28.10.8"))
+            {
+                timer.Stop();
+                try
+                {
+                    Common.RegisterInStartup(true, Application.ExecutablePath);
+                    IpAddress = CommonFunc.Utils.GetLocalIPAddress();
+                    string hostname = Environment.MachineName;
+                    createSession();
+                    Connect(currentSession);
+                    var textConnectionString = getConnectionString(currentSession,
+                        "Test", "Group", "", 5);
+                    using (var db = new SOFTWAREEntities())
+                    {
+                        var ip = db.REMOTE_INFO.Where(m => m.ComputerName == hostname).FirstOrDefault();
+
+                        if (ip != null)
+                        {
+                            ip.UpdateTime = DateTime.Now;
+                            ip.Connection = textConnectionString;
+                            ip.ComputerName = hostname;
+                            ip.IsOnline = true;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            ip = new REMOTE_INFO()
+                            {
+                                IPAddress = IpAddress,
+                                Connection = textConnectionString,
+                                UpdateTime = DateTime.Now,
+                                ComputerName = hostname,
+                                IsOnline = true
+                            };
+                            db.REMOTE_INFO.Add(ip);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                }
+
+            }
+        }
+
         /// <summary>
         /// Handle the form items
         /// </summary>
         public Form1()
         {
             InitializeComponent();
-            Common.RegisterInStartup(true, Application.ExecutablePath);
-            IpAddress = CommonFunc.Utils.GetLocalIPAddress();
-            string hostname = Environment.MachineName;
-            createSession();
-            Connect(currentSession);
-            var textConnectionString = getConnectionString(currentSession,
-                "Test", "Group", "", 5);
-            using (var db = new SOFTWAREEntities())
-            {
-                var ip = db.REMOTE_INFO.Where(m => m.ComputerName == hostname).FirstOrDefault();
-                
-                if (ip != null)
-                {
-                    ip.UpdateTime = DateTime.Now;
-                    ip.Connection = textConnectionString;
-                    ip.ComputerName = hostname;
-                    ip.IsOnline = true;
-                    db.SaveChanges();
-                }
-                else
-                {
-                    ip = new REMOTE_INFO()
-                    {
-                        IPAddress = IpAddress,
-                        Connection = textConnectionString,
-                        UpdateTime = DateTime.Now,
-                    };
-                    db.REMOTE_INFO.Add(ip);
-                    db.SaveChanges();
-                }
-            }
-            lblStatus.Text = "SUCCESSFULLY!";
-            lblStatus.ForeColor = Color.DarkOliveGreen;
+            InitializeTimer();
         }
 
 
