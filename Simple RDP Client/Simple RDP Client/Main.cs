@@ -101,7 +101,7 @@ namespace Simple_RDP_Client
             {
                 var ip = db.REMOTE_INFO.Where(m => (m.IPAddress == IpAddress || m.ComputerName.ToLower() == NameComputer.ToLower()) && m.IsOnline == true).FirstOrDefault();
                 var list = db.REMOTE_INFO.ToList();
-                if (ip != null && !string.IsNullOrEmpty(ip.Connection))
+                if (ip != null && !string.IsNullOrEmpty(ip.Connection) && ip.IsOnline == true)
                 {
                     Form1 form = new Form1(ip);
                     form.closed += () =>

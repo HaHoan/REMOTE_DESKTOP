@@ -21,6 +21,7 @@ namespace Simple_RDP_Client
         {
             InitializeComponent();
             this.ip = ip;
+            lblNameComputer.Text = ip.ComputerName;
             Connect(ip.Connection, this.axRDPViewer, "", "");
         }
 
@@ -31,7 +32,6 @@ namespace Simple_RDP_Client
                 display.Connect(invitation, userName, password);
                 client = new TcpClient();
                 IPEndPoint IpEnd = new IPEndPoint(IPAddress.Parse(ip.IPAddress.Trim()), ip.Id);
-
 
                 try
                 {
@@ -51,6 +51,7 @@ namespace Simple_RDP_Client
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message.ToString());
+                    closed();
                 }
             }
             catch (Exception e)
@@ -66,6 +67,7 @@ namespace Simple_RDP_Client
                 try
                 {
                     recieve = STR.ReadLine();
+                    if (recieve == null) return;
                     this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
                     {
                         ChatScreentextBox.AppendText("You:" + recieve + "\n");
@@ -74,7 +76,6 @@ namespace Simple_RDP_Client
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
                 }
             }
         }
@@ -141,7 +142,7 @@ namespace Simple_RDP_Client
                 FormBorderStyle = FormBorderStyle.Sizable;
                 WindowState = FormWindowState.Normal;
                 TopMost = false;
-                sbFullScreen.Image = Properties.Resources.full_screen;
+                btnFullScreen.Image = Properties.Resources.icons8_full_screen_16;
 
             }
             else
@@ -149,7 +150,7 @@ namespace Simple_RDP_Client
                 FormBorderStyle = FormBorderStyle.None;
                 WindowState = FormWindowState.Maximized;
                 TopMost = true;
-                sbFullScreen.Image = Properties.Resources.icons8_exit_24;
+                btnFullScreen.Image = Properties.Resources.icons8_exit_16;
             }
 
         }
@@ -167,5 +168,34 @@ namespace Simple_RDP_Client
 
         }
 
+        private void Form1_MaximumSizeChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+            {
+                panelTool.Show();
+            }
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            panelTool.Visible = false;
+            btnOpenToolBar.Visible = true;
+        }
+
+        private void btnOpenToolBar_Click(object sender, EventArgs e)
+        {
+            panelTool.Visible = true;
+            btnOpenToolBar.Visible = false;
+        }
     }
 }

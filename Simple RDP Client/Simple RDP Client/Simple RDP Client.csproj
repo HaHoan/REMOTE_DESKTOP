@@ -203,6 +203,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icons8-exit-16.png" />
+    <None Include="Resources\icons8-close-window-16.png" />
+    <None Include="Resources\icons8-minimize-window-16.png" />
+    <None Include="Resources\icons8-full-screen-16.png" />
+    <None Include="Resources\icons8-chat-16.png" />
+    <None Include="logo.ico" />
     <Content Include="REMOTE_MODEL.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>REMOTE_MODEL.Context.cs</LastGenOutput>
@@ -213,6 +219,9 @@
       <DependentUpon>REMOTE_MODEL.edmx</DependentUpon>
       <LastGenOutput>REMOTE_MODEL.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\icons8-close-window-26.png" />
+    <None Include="Resources\icons8-minimize-window-26.png" />
+    <None Include="Resources\icons8-desktop-computer-48.png" />
     <None Include="Resources\icons8-email-send-30.png" />
     <None Include="Resources\icons8-chat-26.png" />
     <None Include="Resources\icons8-exit-24.png" />

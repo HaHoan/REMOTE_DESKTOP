@@ -179,7 +179,6 @@ namespace TCP_to_RDP_Converter
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
                 }
             }
         }
@@ -223,15 +222,7 @@ namespace TCP_to_RDP_Converter
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Disconnect(currentSession);
-            using (var db = new SOFTWAREEntities())
-            {
-                var ip = db.REMOTE_INFO.Where(m => m.IPAddress == IpAddress).FirstOrDefault();
-                if (ip != null)
-                {
-                    ip.IsOnline = false;
-                    db.SaveChanges();
-                }
-            }
+           
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -241,6 +232,19 @@ namespace TCP_to_RDP_Converter
             {
                 CloseConnection();
                 StartConnection();
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            using (var db = new SOFTWAREEntities())
+            {
+                var ip = db.REMOTE_INFO.Where(m => m.IPAddress == IpAddress).FirstOrDefault();
+                if (ip != null)
+                {
+                    ip.IsOnline = false;
+                    db.SaveChanges();
+                }
             }
         }
     }
