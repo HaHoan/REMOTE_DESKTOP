@@ -13,14 +13,16 @@ namespace Simple_RDP_Client
             Connect(connection, this.axRDPViewer, "", "");
         }
 
-        public static void Connect(string invitation, AxRDPViewer display, string userName, string password)
+        public void Connect(string invitation, AxRDPViewer display, string userName, string password)
         {
             try
             {
                 display.Connect(invitation, userName, password);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message.ToString());
+                closed();
             }
         }
 
@@ -29,11 +31,12 @@ namespace Simple_RDP_Client
             try
             {
                 display.Disconnect();
-            }catch(Exception e)
-            {
-              
             }
-            
+            catch (Exception e)
+            {
+
+            }
+
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -46,7 +49,28 @@ namespace Simple_RDP_Client
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            
+
         }
+
+        private void toolStripStatusLabelFullScreen_Click(object sender, EventArgs e)
+        {
+            if (TopMost)
+            {
+                FormBorderStyle = FormBorderStyle.Sizable;
+                WindowState = FormWindowState.Normal;
+                TopMost = false;
+                sbFullScreen.Image = Properties.Resources.full_screen;
+
+            }
+            else
+            {
+                FormBorderStyle = FormBorderStyle.None;
+                WindowState = FormWindowState.Maximized;
+                TopMost = true;
+                sbFullScreen.Image = Properties.Resources.icons8_exit_24;
+            }
+
+        }
+
     }
 }

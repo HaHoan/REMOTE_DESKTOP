@@ -213,6 +213,8 @@
       <DependentUpon>REMOTE_MODEL.edmx</DependentUpon>
       <LastGenOutput>REMOTE_MODEL.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\icons8-exit-24.png" />
+    <None Include="Resources\full-screen.png" />
     <None Include="Resources\waiting.gif" />
     <None Include="Resources\loading.gif" />
     <None Include="Resources\09-32.png" />
