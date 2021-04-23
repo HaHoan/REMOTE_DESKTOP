@@ -123,7 +123,10 @@
             this.ChatScreentextBox.Location = new System.Drawing.Point(24, 18);
             this.ChatScreentextBox.Multiline = true;
             this.ChatScreentextBox.Name = "ChatScreentextBox";
+<<<<<<< HEAD
             this.ChatScreentextBox.ReadOnly = true;
+=======
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
             this.ChatScreentextBox.Size = new System.Drawing.Size(247, 195);
             this.ChatScreentextBox.TabIndex = 0;
             // 

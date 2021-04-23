@@ -26,6 +26,7 @@ namespace TCP_to_RDP_Converter
         public string TextToSend;
         private TcpListener listener;
 
+
         public static void createSession()
         {
             currentSession = new RDPSession();
@@ -200,6 +201,7 @@ namespace TCP_to_RDP_Converter
             backgroundWorker2.CancelAsync();
         }
 
+       
         private void btnSend_Click(object sender, EventArgs e)
         {
             if (MessagetextBox.Text != "")

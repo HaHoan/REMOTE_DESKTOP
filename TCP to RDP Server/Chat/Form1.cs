@@ -28,6 +28,7 @@ namespace Chat
 
         private void Form1_Load(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             //IPAddress[] localIP = Dns.GetHostAddresses(Dns.GetHostName());
 
             //foreach (IPAddress address in localIP)
@@ -37,6 +38,17 @@ namespace Chat
             //        ServerIPtextBox.Text = address.ToString();
             //    }
             //}
+=======
+            IPAddress[] localIP = Dns.GetHostAddresses(Dns.GetHostName());
+
+            foreach (IPAddress address in localIP)
+            {
+                if (address.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    ServerIPtextBox.Text = address.ToString();
+                }
+            }
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -124,6 +136,7 @@ namespace Chat
             }
             MessagetextBox.Text = "";
         }
+<<<<<<< HEAD
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -139,6 +152,8 @@ namespace Chat
             }
            
         }
+=======
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
     }
 
 

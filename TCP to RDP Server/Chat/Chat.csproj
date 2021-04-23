@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+<<<<<<< HEAD
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -27,6 +28,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+=======
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -80,7 +83,10 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+<<<<<<< HEAD
       <DesignTime>True</DesignTime>
+=======
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -95,6 +101,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
@@ -102,5 +109,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+=======
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

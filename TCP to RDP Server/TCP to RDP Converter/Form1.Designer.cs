@@ -42,7 +42,10 @@
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+<<<<<<< HEAD
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+=======
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
             // 
             // panelChat
             // 

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 namespace Chat.Properties {
     
     
@@ -19,6 +20,23 @@ namespace Chat.Properties {
         
         public static Settings Default {
             get {
+=======
+namespace Chat.Properties
+{
+
+
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+
+        public static Settings Default
+        {
+            get
+            {
+>>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
                 return defaultInstance;
             }
         }
