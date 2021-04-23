@@ -20,10 +20,7 @@ namespace Simple_RDP_Client
         public Form1(REMOTE_INFO ip)
         {
             InitializeComponent();
-<<<<<<< HEAD
             this.ip = ip;
-=======
->>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
             Connect(ip.Connection, this.axRDPViewer, "", "");
         }
 
@@ -33,11 +30,8 @@ namespace Simple_RDP_Client
             {
                 display.Connect(invitation, userName, password);
                 client = new TcpClient();
-<<<<<<< HEAD
                 IPEndPoint IpEnd = new IPEndPoint(IPAddress.Parse(ip.IPAddress.Trim()), ip.Id);
-=======
-                IPEndPoint IpEnd = new IPEndPoint(IPAddress.Parse(ip.IPAddress), ip.Id);
->>>>>>> 300c6b7a72d120eed95b6e241bd4ba26c27a8a16
+
 
                 try
                 {
