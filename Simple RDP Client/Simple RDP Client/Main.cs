@@ -103,7 +103,7 @@ namespace Simple_RDP_Client
                 var list = db.REMOTE_INFO.ToList();
                 if (ip != null && !string.IsNullOrEmpty(ip.Connection))
                 {
-                    Form1 form = new Form1(ip.Connection);
+                    Form1 form = new Form1(ip);
                     form.closed += () =>
                     {
                         Show();

@@ -10,12 +10,22 @@ using System.Windows.Forms;
 using RDPCOMAPILib;
 using AxMSTSCLib;
 using System.Runtime.InteropServices;
+using System.Net.Sockets;
+using System.Net;
+using System.IO;
 
 namespace TCP_to_RDP_Converter
 {
     public partial class Form1 : Form
     {
         public static RDPSession currentSession = null;
+        private TcpClient client;
+        public StreamReader STR;
+        public StreamWriter STW;
+        public string recieve;
+        public string TextToSend;
+        private TcpListener listener;
+
         public static void createSession()
         {
             currentSession = new RDPSession();
@@ -23,13 +33,29 @@ namespace TCP_to_RDP_Converter
 
         public static void Connect(RDPSession session)
         {
-            session.OnAttendeeConnected += Incoming;
-            session.Open();
+            try
+            {
+                session.OnAttendeeConnected += Incoming;
+                session.Open();
+            }
+            catch (Exception)
+            {
+
+            }
+           
         }
 
         public static void Disconnect(RDPSession session)
         {
-            session.Close();
+            try
+            {
+                session.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+           
         }
 
         public static string getConnectionString(RDPSession session, String authString,
@@ -47,6 +73,7 @@ namespace TCP_to_RDP_Converter
             MyGuest.ControlLevel = CTRL_LEVEL.CTRL_LEVEL_INTERACTIVE;
         }
         string IpAddress = "";
+        int Port = 0;
         Timer timer;
         private void InitializeTimer()
         {
@@ -96,7 +123,10 @@ namespace TCP_to_RDP_Converter
                             };
                             db.REMOTE_INFO.Add(ip);
                             db.SaveChanges();
+                            
                         }
+                        Port = ip.Id;
+                        StartConnection();
                     }
                 }
                 catch (Exception)
@@ -106,14 +136,85 @@ namespace TCP_to_RDP_Converter
 
             }
         }
+        private void CloseConnection()
+        {
+            listener.Stop();
+            client.Close();
+            STR.Close();
+            STW.Close();
+            backgroundWorker1.WorkerSupportsCancellation = true;
+            backgroundWorker2.WorkerSupportsCancellation = true;
 
-        /// <summary>
-        /// Handle the form items
-        /// </summary>
+        }
+        private void StartConnection()
+        {
+            listener = new TcpListener(IPAddress.Any, Port);
+            listener.Start();
+            client = listener.AcceptTcpClient();
+            STR = new StreamReader(client.GetStream());
+            STW = new StreamWriter(client.GetStream());
+            STW.AutoFlush = true;
+            backgroundWorker1.RunWorkerAsync();
+            backgroundWorker2.WorkerSupportsCancellation = true;
+        }
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (client.Connected)
+            {
+                try
+                {
+                    recieve = STR.ReadLine();
+                    if(recieve == null)
+                    {
+                        e.Result = "RESTART";
+                        return;
+                    }
+                    this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
+                    {
+                        ChatScreentextBox.AppendText("You:" + recieve + "\n");
+                    }));
+                    recieve = "";
+                   
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
+
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (client.Connected)
+            {
+                STW.WriteLine(TextToSend);
+                this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
+                {
+                    ChatScreentextBox.AppendText("Me:" + TextToSend + "\n");
+                }));
+            }
+            else
+            {
+                MessageBox.Show("Sending failed");
+            }
+            backgroundWorker2.CancelAsync();
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            if (MessagetextBox.Text != "")
+            {
+                TextToSend = MessagetextBox.Text;
+                backgroundWorker2.RunWorkerAsync();
+            }
+            MessagetextBox.Text = "";
+        }
+        
         public Form1()
         {
             InitializeComponent();
             InitializeTimer();
+           
         }
 
 
@@ -128,6 +229,16 @@ namespace TCP_to_RDP_Converter
                     ip.IsOnline = false;
                     db.SaveChanges();
                 }
+            }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            string result = e.Result as string;
+            if (result == "RESTART")
+            {
+                CloseConnection();
+                StartConnection();
             }
         }
     }
