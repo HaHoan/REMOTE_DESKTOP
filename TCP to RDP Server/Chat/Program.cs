@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TCP_to_RDP_Converter
+namespace Chat
 {
     static class Program
     {
@@ -14,17 +14,9 @@ namespace TCP_to_RDP_Converter
         [STAThread]
         static void Main()
         {
-            bool result;
-            var mutex = new System.Threading.Mutex(true, "UMC REMOTE DESKTOP", out result);
-            if (!result)
-            {
-                MessageBox.Show("Program is already running.");
-                return;
-            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 main = new Form1();
-            Application.Run(main);
+            Application.Run(new Form1());
         }
     }
 }
