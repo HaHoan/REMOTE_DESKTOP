@@ -294,7 +294,11 @@ namespace TCP_to_RDP_Converter
 
         private void MessagetextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            SendMessage();
+            if(e.KeyCode == Keys.Enter)
+            {
+                SendMessage();
+            }
+            
         }
     }
 }
