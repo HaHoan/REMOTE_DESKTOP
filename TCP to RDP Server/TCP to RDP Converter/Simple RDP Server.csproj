@@ -191,6 +191,7 @@
       <DependentUpon>REMOTE_MODEL.edmx</DependentUpon>
       <LastGenOutput>REMOTE_MODEL.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\icons8-minimize-window-16.png" />
     <None Include="Resources\icons8-email-send-30.png" />
   </ItemGroup>
   <ItemGroup>

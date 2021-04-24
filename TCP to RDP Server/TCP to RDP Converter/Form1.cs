@@ -187,10 +187,14 @@ namespace TCP_to_RDP_Converter
         {
             if (client.Connected)
             {
+                
                 STW.WriteLine(TextToSend);
                 this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
                 {
+                    Size = new Size(289, 301);
+                    WindowState = FormWindowState.Normal;
                     ChatScreentextBox.AppendText("Me:" + TextToSend + "\n");
+                    
                 }));
             }
             else
@@ -214,8 +218,12 @@ namespace TCP_to_RDP_Converter
         public Form1()
         {
             InitializeComponent();
+            int x = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
+            int y = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
+            Size = new Size(0, 0);
+            this.Location = new Point(x, y);
+            WindowState = FormWindowState.Minimized;
             InitializeTimer();
-           
         }
 
 
@@ -246,6 +254,11 @@ namespace TCP_to_RDP_Converter
                     db.SaveChanges();
                 }
             }
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

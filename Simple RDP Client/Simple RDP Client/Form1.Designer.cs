@@ -31,26 +31,26 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.axRDPViewer = new AxRDPCOMAPILib.AxRDPViewer();
             this.panelChat = new System.Windows.Forms.Panel();
+            this.btnSend = new System.Windows.Forms.PictureBox();
             this.MessagetextBox = new System.Windows.Forms.TextBox();
             this.ChatScreentextBox = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.panelTool = new System.Windows.Forms.Panel();
-            this.lblNameComputer = new System.Windows.Forms.Label();
             this.btnChat = new System.Windows.Forms.PictureBox();
             this.btnFullScreen = new System.Windows.Forms.PictureBox();
             this.btnMinimize = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.PictureBox();
-            this.btnSend = new System.Windows.Forms.PictureBox();
+            this.lblNameComputer = new System.Windows.Forms.Label();
             this.btnOpenToolBar = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.axRDPViewer)).BeginInit();
             this.panelChat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSend)).BeginInit();
             this.panelTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnChat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFullScreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOpenToolBar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,6 +75,16 @@
             this.panelChat.Size = new System.Drawing.Size(289, 297);
             this.panelChat.TabIndex = 7;
             this.panelChat.Visible = false;
+            // 
+            // btnSend
+            // 
+            this.btnSend.Image = global::Simple_RDP_Client.Properties.Resources.icons8_email_send_30;
+            this.btnSend.Location = new System.Drawing.Point(234, 235);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(37, 30);
+            this.btnSend.TabIndex = 2;
+            this.btnSend.TabStop = false;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // MessagetextBox
             // 
@@ -113,18 +123,6 @@
             this.panelTool.Name = "panelTool";
             this.panelTool.Size = new System.Drawing.Size(207, 23);
             this.panelTool.TabIndex = 8;
-            // 
-            // lblNameComputer
-            // 
-            this.lblNameComputer.AutoSize = true;
-            this.lblNameComputer.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblNameComputer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNameComputer.Location = new System.Drawing.Point(0, 0);
-            this.lblNameComputer.Name = "lblNameComputer";
-            this.lblNameComputer.Size = new System.Drawing.Size(54, 15);
-            this.lblNameComputer.TabIndex = 0;
-            this.lblNameComputer.Text = "Tên máy";
-            this.lblNameComputer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnChat
             // 
@@ -174,15 +172,17 @@
             this.btnClose.TabStop = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnSend
+            // lblNameComputer
             // 
-            this.btnSend.Image = global::Simple_RDP_Client.Properties.Resources.icons8_email_send_30;
-            this.btnSend.Location = new System.Drawing.Point(234, 235);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(37, 30);
-            this.btnSend.TabIndex = 2;
-            this.btnSend.TabStop = false;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            this.lblNameComputer.AutoSize = true;
+            this.lblNameComputer.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblNameComputer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNameComputer.Location = new System.Drawing.Point(0, 0);
+            this.lblNameComputer.Name = "lblNameComputer";
+            this.lblNameComputer.Size = new System.Drawing.Size(54, 15);
+            this.lblNameComputer.TabIndex = 0;
+            this.lblNameComputer.Text = "Tên máy";
+            this.lblNameComputer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnOpenToolBar
             // 
@@ -214,13 +214,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.axRDPViewer)).EndInit();
             this.panelChat.ResumeLayout(false);
             this.panelChat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSend)).EndInit();
             this.panelTool.ResumeLayout(false);
             this.panelTool.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnChat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFullScreen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOpenToolBar)).EndInit();
             this.ResumeLayout(false);
 

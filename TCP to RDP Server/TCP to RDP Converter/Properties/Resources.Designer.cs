@@ -69,5 +69,15 @@ namespace TCP_to_RDP_Converter.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_minimize_window_16 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-minimize-window-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
