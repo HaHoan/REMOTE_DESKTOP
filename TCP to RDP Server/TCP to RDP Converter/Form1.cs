@@ -172,7 +172,7 @@ namespace TCP_to_RDP_Converter
                     }
                     this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
                     {
-                        ChatScreentextBox.AppendText("You:" + recieve + "\n");
+                        ChatScreentextBox.AppendText("You:" + recieve + Environment.NewLine);
                     }));
                     recieve = "";
                    
@@ -193,7 +193,7 @@ namespace TCP_to_RDP_Converter
                 {
                     Size = new Size(289, 301);
                     WindowState = FormWindowState.Normal;
-                    ChatScreentextBox.AppendText("Me:" + TextToSend + "\n");
+                    ChatScreentextBox.AppendText("Me:" + TextToSend + Environment.NewLine);
                     
                 }));
             }
@@ -239,6 +239,7 @@ namespace TCP_to_RDP_Converter
             if (result == "RESTART")
             {
                 CloseConnection();
+                WindowState = FormWindowState.Minimized;
                 StartConnection();
             }
         }

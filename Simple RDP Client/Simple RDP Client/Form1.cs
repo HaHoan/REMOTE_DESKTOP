@@ -39,7 +39,7 @@ namespace Simple_RDP_Client
 
                     if (client.Connected)
                     {
-                        ChatScreentextBox.AppendText("Connected to server" + "\n");
+                        ChatScreentextBox.AppendText("Connected to server" + Environment.NewLine);
                         STW = new StreamWriter(client.GetStream());
                         STR = new StreamReader(client.GetStream());
                         STW.AutoFlush = true;
@@ -70,7 +70,7 @@ namespace Simple_RDP_Client
                     if (recieve == null) return;
                     this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
                     {
-                        ChatScreentextBox.AppendText("You:" + recieve + "\n");
+                        ChatScreentextBox.AppendText("You:" + recieve + Environment.NewLine);
                     }));
                     recieve = "";
                 }
@@ -87,7 +87,7 @@ namespace Simple_RDP_Client
                 STW.WriteLine(TextToSend);
                 this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
                 {
-                    ChatScreentextBox.AppendText("Me:" + TextToSend + "\n");
+                    ChatScreentextBox.AppendText("Me:" + TextToSend + Environment.NewLine);
                 }));
             }
             else
