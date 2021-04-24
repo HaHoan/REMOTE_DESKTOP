@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.axRDPViewer = new AxRDPCOMAPILib.AxRDPViewer();
             this.panelChat = new System.Windows.Forms.Panel();
-            this.btnSend = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.MessagetextBox = new System.Windows.Forms.TextBox();
             this.ChatScreentextBox = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -45,7 +45,6 @@
             this.btnOpenToolBar = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.axRDPViewer)).BeginInit();
             this.panelChat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSend)).BeginInit();
             this.panelTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnChat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFullScreen)).BeginInit();
@@ -67,40 +66,44 @@
             // panelChat
             // 
             this.panelChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelChat.Controls.Add(this.btnSend);
+            this.panelChat.Controls.Add(this.button1);
             this.panelChat.Controls.Add(this.MessagetextBox);
             this.panelChat.Controls.Add(this.ChatScreentextBox);
             this.panelChat.Location = new System.Drawing.Point(24, 36);
             this.panelChat.Name = "panelChat";
-            this.panelChat.Size = new System.Drawing.Size(289, 297);
+            this.panelChat.Size = new System.Drawing.Size(300, 268);
             this.panelChat.TabIndex = 7;
             this.panelChat.Visible = false;
             // 
-            // btnSend
+            // button1
             // 
-            this.btnSend.Image = global::Simple_RDP_Client.Properties.Resources.icons8_email_send_30;
-            this.btnSend.Location = new System.Drawing.Point(234, 235);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(37, 30);
-            this.btnSend.TabIndex = 2;
-            this.btnSend.TabStop = false;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            this.button1.Image = global::Simple_RDP_Client.Properties.Resources.icons8_send_email_16;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(233, 234);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(54, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Gửi";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // MessagetextBox
             // 
-            this.MessagetextBox.Location = new System.Drawing.Point(26, 234);
-            this.MessagetextBox.Multiline = true;
+            this.MessagetextBox.Location = new System.Drawing.Point(12, 234);
             this.MessagetextBox.Name = "MessagetextBox";
-            this.MessagetextBox.Size = new System.Drawing.Size(200, 51);
+            this.MessagetextBox.Size = new System.Drawing.Size(214, 20);
             this.MessagetextBox.TabIndex = 1;
+            this.MessagetextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagetextBox_PreviewKeyDown);
             // 
             // ChatScreentextBox
             // 
-            this.ChatScreentextBox.Location = new System.Drawing.Point(24, 18);
+            this.ChatScreentextBox.Location = new System.Drawing.Point(12, 17);
             this.ChatScreentextBox.Multiline = true;
             this.ChatScreentextBox.Name = "ChatScreentextBox";
             this.ChatScreentextBox.ReadOnly = true;
-            this.ChatScreentextBox.Size = new System.Drawing.Size(247, 195);
+            this.ChatScreentextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ChatScreentextBox.Size = new System.Drawing.Size(275, 195);
             this.ChatScreentextBox.TabIndex = 0;
             // 
             // backgroundWorker1
@@ -127,7 +130,7 @@
             // btnChat
             // 
             this.btnChat.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnChat.Image = global::Simple_RDP_Client.Properties.Resources.icons8_chat_16;
+            this.btnChat.Image = global::Simple_RDP_Client.Properties.Resources.icons8_send_email_16;
             this.btnChat.Location = new System.Drawing.Point(105, 0);
             this.btnChat.Name = "btnChat";
             this.btnChat.Size = new System.Drawing.Size(27, 19);
@@ -214,7 +217,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.axRDPViewer)).EndInit();
             this.panelChat.ResumeLayout(false);
             this.panelChat.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSend)).EndInit();
             this.panelTool.ResumeLayout(false);
             this.panelTool.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnChat)).EndInit();
@@ -229,8 +231,6 @@
         #endregion
         private AxRDPCOMAPILib.AxRDPViewer axRDPViewer;
         private System.Windows.Forms.Panel panelChat;
-        private System.Windows.Forms.PictureBox btnSend;
-        private System.Windows.Forms.TextBox MessagetextBox;
         private System.Windows.Forms.TextBox ChatScreentextBox;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
@@ -241,6 +241,8 @@
         private System.Windows.Forms.PictureBox btnFullScreen;
         private System.Windows.Forms.PictureBox btnChat;
         private System.Windows.Forms.PictureBox btnOpenToolBar;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox MessagetextBox;
     }
 }
 

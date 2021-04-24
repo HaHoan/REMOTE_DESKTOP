@@ -23,6 +23,7 @@ namespace Simple_RDP_Client
             this.ip = ip;
             lblNameComputer.Text = ip.ComputerName;
             Connect(ip.Connection, this.axRDPViewer, "", "");
+            
         }
 
         public void Connect(string invitation, AxRDPViewer display, string userName, string password)
@@ -99,12 +100,17 @@ namespace Simple_RDP_Client
 
         private void btnSend_Click(object sender, EventArgs e)
         {
+            SendMessage();
+        }
+        private void SendMessage()
+        {
             if (MessagetextBox.Text != "")
             {
                 TextToSend = MessagetextBox.Text;
                 backgroundWorker2.RunWorkerAsync();
             }
-            MessagetextBox.Text = "";
+            MessagetextBox.ResetText();
+            MessagetextBox.Focus();
         }
         public static void disconnect(AxRDPViewer display)
         {
@@ -164,13 +170,9 @@ namespace Simple_RDP_Client
             else
             {
                 panelChat.Show();
+                MessagetextBox.Focus();
             }
 
-        }
-
-        private void Form1_MaximumSizeChanged(object sender, EventArgs e)
-        {
-           
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -196,6 +198,15 @@ namespace Simple_RDP_Client
         {
             panelTool.Visible = true;
             btnOpenToolBar.Visible = false;
+        }
+
+        private void MessagetextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                SendMessage();
+               
+            }
         }
     }
 }

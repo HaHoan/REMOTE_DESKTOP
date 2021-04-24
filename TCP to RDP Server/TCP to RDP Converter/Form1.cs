@@ -206,14 +206,19 @@ namespace TCP_to_RDP_Converter
 
         private void btnSend_Click(object sender, EventArgs e)
         {
+            SendMessage();
+        }
+        private void SendMessage()
+        {
+
             if (MessagetextBox.Text != "")
             {
                 TextToSend = MessagetextBox.Text;
                 backgroundWorker2.RunWorkerAsync();
             }
-            MessagetextBox.Text = "";
+            MessagetextBox.ResetText();
+            MessagetextBox.Focus();
         }
-
         public Form1()
         {
             InitializeComponent();
@@ -284,6 +289,11 @@ namespace TCP_to_RDP_Converter
             WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
             InitializeTimer();
+        }
+
+        private void MessagetextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            SendMessage();
         }
     }
 }

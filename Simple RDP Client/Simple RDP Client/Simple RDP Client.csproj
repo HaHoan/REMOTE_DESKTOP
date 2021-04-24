@@ -203,6 +203,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icons8-send-email-16.png" />
     <None Include="Resources\icons8-exit-16.png" />
     <None Include="Resources\icons8-close-window-16.png" />
     <None Include="Resources\icons8-minimize-window-16.png" />
