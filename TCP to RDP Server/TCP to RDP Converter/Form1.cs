@@ -43,7 +43,7 @@ namespace TCP_to_RDP_Converter
             {
 
             }
-           
+
         }
 
         public static void Disconnect(RDPSession session)
@@ -56,7 +56,7 @@ namespace TCP_to_RDP_Converter
             {
 
             }
-           
+
         }
 
         public static string getConnectionString(RDPSession session, String authString,
@@ -124,7 +124,7 @@ namespace TCP_to_RDP_Converter
                             };
                             db.REMOTE_INFO.Add(ip);
                             db.SaveChanges();
-                            
+
                         }
                         Port = ip.Id;
                         StartConnection();
@@ -132,7 +132,7 @@ namespace TCP_to_RDP_Converter
                 }
                 catch (Exception)
                 {
-                    
+
                 }
 
             }
@@ -165,7 +165,7 @@ namespace TCP_to_RDP_Converter
                 try
                 {
                     recieve = STR.ReadLine();
-                    if(recieve == null)
+                    if (recieve == null)
                     {
                         e.Result = "RESTART";
                         return;
@@ -175,7 +175,7 @@ namespace TCP_to_RDP_Converter
                         ChatScreentextBox.AppendText("You:" + recieve + Environment.NewLine);
                     }));
                     recieve = "";
-                   
+
                 }
                 catch (Exception ex)
                 {
@@ -187,13 +187,13 @@ namespace TCP_to_RDP_Converter
         {
             if (client.Connected)
             {
-                
+
                 STW.WriteLine(TextToSend);
                 this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
                 {
                     WindowState = FormWindowState.Normal;
                     ChatScreentextBox.AppendText("Me:" + TextToSend + Environment.NewLine);
-                    
+
                 }));
             }
             else
@@ -203,7 +203,7 @@ namespace TCP_to_RDP_Converter
             backgroundWorker2.CancelAsync();
         }
 
-       
+
         private void btnSend_Click(object sender, EventArgs e)
         {
             if (MessagetextBox.Text != "")
@@ -213,22 +213,22 @@ namespace TCP_to_RDP_Converter
             }
             MessagetextBox.Text = "";
         }
-        
+
         public Form1()
         {
             InitializeComponent();
             int x = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
             int y = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
             this.Location = new Point(x, y);
-            WindowState = FormWindowState.Minimized;
-            InitializeTimer();
+            
+           
         }
 
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Disconnect(currentSession);
-           
+
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -237,6 +237,7 @@ namespace TCP_to_RDP_Converter
             if (result == "RESTART")
             {
                 CloseConnection();
+                System.Threading.Thread.Sleep(1000);
                 WindowState = FormWindowState.Minimized;
                 StartConnection();
             }
@@ -258,6 +259,31 @@ namespace TCP_to_RDP_Converter
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void notifyIcon1_Click(object sender, EventArgs e)
+        {
+
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            notifyIcon1.Visible = false;
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                notifyIcon1.Visible = true;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            System.Threading.Thread.Sleep(1000);
+            WindowState = FormWindowState.Minimized;
+            this.ShowInTaskbar = false;
+            InitializeTimer();
         }
     }
 }
