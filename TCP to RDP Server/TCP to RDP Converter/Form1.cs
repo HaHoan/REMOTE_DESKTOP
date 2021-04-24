@@ -157,6 +157,7 @@ namespace TCP_to_RDP_Converter
             STW.AutoFlush = true;
             backgroundWorker1.RunWorkerAsync();
             backgroundWorker2.WorkerSupportsCancellation = true;
+            ChatScreentextBox.ResetText();
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {

@@ -28,7 +28,7 @@
     <PublisherName>hoanht%40umcvn.com</PublisherName>
     <SuiteName>UMCVN</SuiteName>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -191,6 +191,7 @@
       <DependentUpon>REMOTE_MODEL.edmx</DependentUpon>
       <LastGenOutput>REMOTE_MODEL.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\icons8-send-email-161.png" />
     <None Include="Resources\icons8-minimize-window-16.png" />
     <None Include="Resources\icons8-email-send-30.png" />
   </ItemGroup>
