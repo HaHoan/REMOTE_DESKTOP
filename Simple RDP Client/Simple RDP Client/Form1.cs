@@ -104,7 +104,7 @@ namespace Simple_RDP_Client
         }
         private void SendMessage()
         {
-            if (MessagetextBox.Text != "")
+            if (!string.IsNullOrEmpty(MessagetextBox.Text.Trim()))
             {
                 TextToSend = MessagetextBox.Text;
                 backgroundWorker2.RunWorkerAsync();
