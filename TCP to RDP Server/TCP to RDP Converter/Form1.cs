@@ -273,7 +273,7 @@ namespace TCP_to_RDP_Converter
 
             Show();
             this.WindowState = FormWindowState.Normal;
-            notifyIcon1.Visible = false;
+           // notifyIcon1.Visible = false;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
