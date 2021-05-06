@@ -56,6 +56,7 @@ namespace Simple_RDP_Client
                     if (Utils.ValidateIPv4(txbNameComputer.Text))
                     {
                         IpAddress = listAll.Where(m => m.ComputerName == txbNameComputer.Text.Trim()).FirstOrDefault().IPAddress;
+
                     }
                 }
                 if (timer != null && timer.Enabled)
@@ -99,18 +100,18 @@ namespace Simple_RDP_Client
                 var list = db.REMOTE_INFO.ToList();
                 if (ip != null && !string.IsNullOrEmpty(ip.Connection) && ip.IsOnline == true)
                 {
-                    Form1 form = new Form1(ip);
-                    form.closed += () =>
-                    {
-                        Show();
-                    };
-                    form.Show();
-
                     timer.Stop();
-                    i = 1;
-                    Hide();
+                    Form1 form = new Form1(ip);
+                    if(form == null)
+                    {
+                        lblStatus.Text = "Chưa kết nối được!";
+                        return;
+                    }
+                    form.Show();
+                  
                 }
             };
+            i = 1;
 
         }
 
@@ -143,7 +144,7 @@ namespace Simple_RDP_Client
                 {
                     var s = list.ElementAt(e.RowIndex);
                     txbNameComputer.Text = s.ComputerName;
-                   
+
                     btnConnect.Focus();
                 }
             }

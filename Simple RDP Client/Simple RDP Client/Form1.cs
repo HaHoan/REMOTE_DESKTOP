@@ -10,7 +10,7 @@ namespace Simple_RDP_Client
 {
     public partial class Form1 : Form
     {
-        public Action closed;
+        public Action<string> error;
         private TcpClient client;
         private REMOTE_INFO ip;
         public StreamReader STR;
@@ -22,7 +22,6 @@ namespace Simple_RDP_Client
             InitializeComponent();
             this.ip = ip;
             lblNameComputer.Text = ip.ComputerName;
-            Connect(ip.Connection, this.axRDPViewer, "", "");
             
         }
 
@@ -51,14 +50,18 @@ namespace Simple_RDP_Client
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
-                    closed();
+                    if (MessageBox.Show(ex.Message.ToString()) == DialogResult.OK)
+                    {
+                        Close();
+                    }
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message.ToString());
-                closed();
+                if (MessageBox.Show(e.Message.ToString()) == DialogResult.OK)
+                {
+                    Close();
+                }
             }
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -129,10 +132,13 @@ namespace Simple_RDP_Client
         {
             try
             {
-                client.Close();
-                STW.Close();
-                STR.Close();
-                closed();
+                if (client != null)
+                    client.Close();
+                if (STW != null)
+                    STW.Close();
+                if (STR != null)
+                    STR.Close();
+                
             }
             catch (Exception ex)
             {
@@ -202,11 +208,21 @@ namespace Simple_RDP_Client
 
         private void MessagetextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 SendMessage();
-               
+
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            Connect(ip.Connection, this.axRDPViewer, "", "");
         }
     }
 }

@@ -213,6 +213,8 @@
             this.Name = "Form1";
             this.Text = "UMC REMOTE DESTOP";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.axRDPViewer)).EndInit();
             this.panelChat.ResumeLayout(false);
