@@ -53,13 +53,9 @@ namespace Simple_RDP_Client
                     IpAddress = Utils.GetIPAddressFrom(txbNameComputer.Text.Trim());
                     NameComputer = txbNameComputer.Text.Trim();
 
-                    if (string.IsNullOrEmpty(IpAddress))
+                    if (Utils.ValidateIPv4(txbNameComputer.Text))
                     {
-                        lblStatus.Text = "Không tìm thấy tên máy tính!";
-                        lblStatus.ForeColor = Color.Maroon;
-                        txbNameComputer.Focus();
-                        txbNameComputer.SelectAll();
-                        return;
+                        IpAddress = listAll.Where(m => m.ComputerName == txbNameComputer.Text.Trim()).FirstOrDefault().IPAddress;
                     }
                 }
                 if (timer != null && timer.Enabled)
@@ -99,7 +95,7 @@ namespace Simple_RDP_Client
             pgBConnecting.Value = i;
             using (var db = new SOFTWAREEntities())
             {
-                var ip = db.REMOTE_INFO.Where(m => (m.IPAddress == IpAddress || m.ComputerName.ToLower() == NameComputer.ToLower()) && m.IsOnline == true).FirstOrDefault();
+                var ip = db.REMOTE_INFO.Where(m => (m.ComputerName.ToLower() == NameComputer.ToLower()) && m.IsOnline == true).FirstOrDefault();
                 var list = db.REMOTE_INFO.ToList();
                 if (ip != null && !string.IsNullOrEmpty(ip.Connection) && ip.IsOnline == true)
                 {
