@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
+using Tulpep.NotificationWindow;
 
 namespace TCP_to_RDP_Converter
 {
@@ -106,6 +107,7 @@ namespace TCP_to_RDP_Converter
 
                         if (ip != null)
                         {
+                            ip.IPAddress = IpAddress;
                             ip.UpdateTime = DateTime.Now;
                             ip.Connection = textConnectionString;
                             ip.ComputerName = hostname;
@@ -159,6 +161,7 @@ namespace TCP_to_RDP_Converter
             backgroundWorker2.WorkerSupportsCancellation = true;
             ChatScreentextBox.ResetText();
         }
+        PopupNotifier popup;
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             while (client.Connected)
@@ -173,6 +176,16 @@ namespace TCP_to_RDP_Converter
                     }
                     this.ChatScreentextBox.Invoke(new MethodInvoker(delegate ()
                     {
+                        if (this.WindowState == FormWindowState.Minimized)
+                        {
+                            popup = new PopupNotifier();
+                            popup.TitleText = "Co tin nhan moi!";
+                            popup.ContentText = recieve;
+                            popup.Close += Popup_Close;
+                            popup.Popup();
+
+                        }
+
                         ChatScreentextBox.AppendText("You:" + recieve + Environment.NewLine);
                     }));
                     recieve = "";
@@ -183,7 +196,10 @@ namespace TCP_to_RDP_Converter
                 }
             }
         }
-
+        private void Popup_Close(object sender, EventArgs e)
+        {
+            notifyIcon1_Click(sender, e);
+        }
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             if (client.Connected)
