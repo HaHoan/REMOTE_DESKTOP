@@ -22,48 +22,10 @@ namespace Simple_RDP_Client
             InitializeComponent();
             this.ip = ip;
             lblNameComputer.Text = ip.ComputerName;
-            
+
         }
 
-        public void Connect(string invitation, AxRDPViewer display, string userName, string password)
-        {
-            try
-            {
-                display.Connect(invitation, userName, password);
-                client = new TcpClient();
-                IPEndPoint IpEnd = new IPEndPoint(IPAddress.Parse(ip.IPAddress.Trim()), ip.Id);
 
-                try
-                {
-                    client.Connect(IpEnd);
-
-                    if (client.Connected)
-                    {
-                        ChatScreentextBox.AppendText("Connected to server" + Environment.NewLine);
-                        STW = new StreamWriter(client.GetStream());
-                        STR = new StreamReader(client.GetStream());
-                        STW.AutoFlush = true;
-                        backgroundWorker1.RunWorkerAsync();
-                        backgroundWorker2.WorkerSupportsCancellation = true;
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (MessageBox.Show(ex.Message.ToString()) == DialogResult.OK)
-                    {
-                        Close();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                if (MessageBox.Show(e.Message.ToString()) == DialogResult.OK)
-                {
-                    Close();
-                }
-            }
-        }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             while (client.Connected)
@@ -138,7 +100,7 @@ namespace Simple_RDP_Client
                     STW.Close();
                 if (STR != null)
                     STR.Close();
-                
+
             }
             catch (Exception ex)
             {
@@ -217,12 +179,82 @@ namespace Simple_RDP_Client
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          
-        }
 
+        }
+        int valueProcess = 0;
         private void Form1_Shown(object sender, EventArgs e)
         {
-            Connect(ip.Connection, this.axRDPViewer, "", "");
+            bgwConnect.RunWorkerAsync();
+            bgwProgessBar.RunWorkerAsync();
         }
+
+        private void bgwConnect_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string result = Connect(ip.Connection, this.axRDPViewer, "", "");
+            e.Result = result;
+        }
+
+        public string Connect(string invitation, AxRDPViewer display, string userName, string password)
+        {
+            try
+            {
+                display.Connect(invitation, userName, password);
+                client = new TcpClient();
+                IPEndPoint IpEnd = new IPEndPoint(IPAddress.Parse(ip.IPAddress.Trim()), ip.Id);
+
+                client.Connect(IpEnd);
+                return "OK";
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
+        }
+
+
+        private void bgwConnect_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            valueProcess = -999;
+            string result = e.Result as string;
+            if (result != "OK")
+            {
+
+                if (MessageBox.Show(result) == DialogResult.OK)
+                {
+                    Close();
+                    return;
+                }
+            }
+            if (client.Connected)
+            {
+                pbConnect.Hide();
+                ChatScreentextBox.AppendText("Connected to server" + Environment.NewLine);
+                STW = new StreamWriter(client.GetStream());
+                STR = new StreamReader(client.GetStream());
+                STW.AutoFlush = true;
+                backgroundWorker1.RunWorkerAsync();
+                backgroundWorker2.WorkerSupportsCancellation = true;
+
+            }
+        }
+
+        private void bgwProgessBar_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            while (valueProcess >= 0)
+            {
+                worker.ReportProgress(valueProcess);
+                valueProcess++;
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
+
+        private void bgwProgessBar_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.pbConnect.Value = e.ProgressPercentage;
+        }
+
+       
     }
 }

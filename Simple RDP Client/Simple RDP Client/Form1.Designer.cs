@@ -43,6 +43,9 @@
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.lblNameComputer = new System.Windows.Forms.Label();
             this.btnOpenToolBar = new System.Windows.Forms.PictureBox();
+            this.bgwConnect = new System.ComponentModel.BackgroundWorker();
+            this.pbConnect = new System.Windows.Forms.ProgressBar();
+            this.bgwProgessBar = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.axRDPViewer)).BeginInit();
             this.panelChat.SuspendLayout();
             this.panelTool.SuspendLayout();
@@ -198,11 +201,31 @@
             this.btnOpenToolBar.Visible = false;
             this.btnOpenToolBar.Click += new System.EventHandler(this.btnOpenToolBar_Click);
             // 
+            // bgwConnect
+            // 
+            this.bgwConnect.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwConnect_DoWork);
+            this.bgwConnect.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwConnect_RunWorkerCompleted);
+            // 
+            // pbConnect
+            // 
+            this.pbConnect.Location = new System.Drawing.Point(310, 372);
+            this.pbConnect.Maximum = 10;
+            this.pbConnect.Name = "pbConnect";
+            this.pbConnect.Size = new System.Drawing.Size(713, 23);
+            this.pbConnect.TabIndex = 9;
+            // 
+            // bgwProgessBar
+            // 
+            this.bgwProgessBar.WorkerReportsProgress = true;
+            this.bgwProgessBar.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwProgessBar_DoWork);
+            this.bgwProgessBar.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwProgessBar_ProgressChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1235, 798);
+            this.Controls.Add(this.pbConnect);
             this.Controls.Add(this.btnOpenToolBar);
             this.Controls.Add(this.panelTool);
             this.Controls.Add(this.panelChat);
@@ -245,6 +268,9 @@
         private System.Windows.Forms.PictureBox btnOpenToolBar;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox MessagetextBox;
+        private System.ComponentModel.BackgroundWorker bgwConnect;
+        private System.Windows.Forms.ProgressBar pbConnect;
+        private System.ComponentModel.BackgroundWorker bgwProgessBar;
     }
 }
 
